@@ -19,7 +19,7 @@ class Board {
         this.blackAmazons.push(new Amazon(0, 3, false));
         this.blackAmazons.push(new Amazon(9, 3, false));
 
-        console.log("Pieces are set!")
+        //console.log("Pieces are set!")
     }
 
     showGrid () {
@@ -37,12 +37,20 @@ class Board {
     }
 
     showPieces () {
+        //console.log("Showing pieces...");
+
+        // Showing black pieces first
+        // This way when moving a white piece
+        // It will show on top of the black pieces
         for (let i = 0; i < this.whiteAmazons.length; i++){
-            this.blackAmazons[i].show();
+            this.whiteAmazons[i].show(); 
+            
         }
         for (let i = 0; i < this.whiteAmazons.length; i++){
-            this.whiteAmazons[i].show();   
+            this.blackAmazons[i].show();  
         }
+
+        //console.log("You should see the pieces :)");
     }
 
     getPieceAt(x, y) {

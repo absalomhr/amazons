@@ -1,8 +1,9 @@
-var images = []
+var images = [];
 var board;
 var tileSize = 100;
 var movingPiece;
 var moving = false;
+var whitesMove = true;
 
 function setup() {
     board = new Board();
@@ -10,7 +11,7 @@ function setup() {
     canvas.parent("canvas");
     for (var i = 0; i < 2; i++){
         images.push(loadImage("assets/amazon" + i + ".png"));
-    }
+    }   
 }
 
 function draw () {
@@ -22,15 +23,24 @@ function draw () {
 function mousePressed() {
     var x = floor(mouseX / tileSize);
     var y = floor(mouseY / tileSize);
-    // TODO Check if arrow thrown
-    
+        
     // If there isn't a piece moving
     if(!moving){
         movingPiece = board.getPieceAt(x, y);
-        if (movingPiece != null){
-            movingPiece.isMoving = true;
-        } else {
-            return false;
+        if (whitesMove){ // White
+            if (movingPiece != null && movingPiece.isWhite){
+                movingPiece.isMoving = true;
+            } else {
+                movingPiece = null;
+                return false;
+            }
+        } else { // Black
+            if (movingPiece != null && !(movingPiece.isWhite)){
+                movingPiece.isMoving = true;
+            } else {
+                movingPiece = null;
+                return false;
+            }
         }
     } else { // If a piece is moving
         if (movingPiece.canMove(x, y, board)){
@@ -41,4 +51,5 @@ function mousePressed() {
         }   
     }
     moving = !moving;
+    whitesMove = !whitesMove;
 }
