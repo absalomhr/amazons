@@ -37,18 +37,30 @@ class Board {
     }
 
     showPieces () {
-        //console.log("Showing pieces...");
 
-        // Showing black pieces first
+        // Showing black pieces first if whites move
         // This way when moving a white piece
         // It will show on top of the black pieces
-        for (let i = 0; i < this.whiteAmazons.length; i++){
-            this.whiteAmazons[i].show(); 
-            
+        if (whitesMove) {
+            for (let i = 0; i < this.blackAmazons.length; i++){
+                this.blackAmazons[i].show();  
+            }
+            for (let i = 0; i < this.whiteAmazons.length; i++){
+                this.whiteAmazons[i].show(); 
+                
+            }
         }
-        for (let i = 0; i < this.whiteAmazons.length; i++){
-            this.blackAmazons[i].show();  
+        else {
+            for (let i = 0; i < this.whiteAmazons.length; i++){
+                this.whiteAmazons[i].show(); 
+                
+            }
+            for (let i = 0; i < this.blackAmazons.length; i++){
+                this.blackAmazons[i].show();  
+            }
         }
+        
+        
 
         //console.log("You should see the pieces :)");
     }

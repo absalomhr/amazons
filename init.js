@@ -23,33 +23,56 @@ function draw () {
 function mousePressed() {
     var x = floor(mouseX / tileSize);
     var y = floor(mouseY / tileSize);
-        
-    // If there isn't a piece moving
-    if(!moving){
-        movingPiece = board.getPieceAt(x, y);
-        if (whitesMove){ // White
+
+    if (whitesMove) {
+        if(!moving) { // There isnt a piece moving
+            movingPiece = board.getPieceAt(x, y); // The potential piece you just clicked
             if (movingPiece != null && movingPiece.isWhite){
                 movingPiece.isMoving = true;
+                moving = !moving; // You are moving a piece
             } else {
+                // There's no piece to move where you clicked
+                // Or its of color black
                 movingPiece = null;
                 return false;
             }
-        } else { // Black
-            if (movingPiece != null && !(movingPiece.isWhite)){
-                movingPiece.isMoving = true;
-            } else {
+        } else { // You are moving a piece
+            if (movingPiece.canMove(x, y, board)){ // Check if the piece can move to where you clicked
+                movingPiece.move(x, y, board); // It can
+                movingPiece.isMoving = false; // You are no longer moving the piece, it arrived its destination
+                moving = !moving;
+                whitesMove = !whitesMove; // Its blacks turn
+            } else { // You cant move there, try other move
+                movingPiece.isMoving = false;
                 movingPiece = null;
+                moving = !moving;
                 return false;
             }
         }
-    } else { // If a piece is moving
-        if (movingPiece.canMove(x, y, board)){
-            movingPiece.move(x, y, board);
-            movingPiece.isMoving = false;    
-        } else {
-            movingPiece.isMoving = false;
-        }   
+    } else { // Black moves
+        if(!moving) { // There isnt a piece moving
+            movingPiece = board.getPieceAt(x, y); // The potential piece you just clicked
+            if (movingPiece != null && !movingPiece.isWhite){
+                movingPiece.isMoving = true;
+                moving = !moving; // You are moving a piece
+            } else {
+                // There's no piece to move where you clicked
+                // Or its of color white
+                movingPiece = null;
+                return false;
+            }
+        } else { // You are moving a piece
+            if (movingPiece.canMove(x, y, board)){ // Check if the piece can move to where you clicked
+                movingPiece.move(x, y, board); // It can
+                movingPiece.isMoving = false; // You are no longer moving the piece, it arrived its destination
+                moving = !moving;
+                whitesMove = !whitesMove; // Its whites turn
+            } else { // You cant move there, try other move
+                movingPiece.isMoving = false;
+                movingPiece = null;
+                moving = !moving;
+                return false;
+            }
+        }
     }
-    moving = !moving;
-    whitesMove = !whitesMove;
 }
