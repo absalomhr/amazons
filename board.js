@@ -38,8 +38,10 @@ class Board {
 
     showPieces () {
         for (let i = 0; i < this.whiteAmazons.length; i++){
-            this.whiteAmazons[i].show();
             this.blackAmazons[i].show();
+        }
+        for (let i = 0; i < this.whiteAmazons.length; i++){
+            this.whiteAmazons[i].show();   
         }
     }
 
