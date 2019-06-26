@@ -52,13 +52,16 @@ class Piece {
 
     canMove(x, y, board){
         if (!this.withinBounds(x,y)){
+            console.log("bounds");
             return false;
         }
         else if (this.movingIntoPiece(x, y, board)){
+            console.log("into piece");
             return false;
         } // Orthogonal move
         else if (x == this.boardPosition.x || y == this.boardPosition.y){
             if (this.movingThroughPieces(x, y, board)){
+                console.log("ort into piece");
                 return false;
             }
             else {
@@ -67,12 +70,14 @@ class Piece {
         } // Diagonal move
         else if (abs(x - this.boardPosition.x) == abs (y - this.boardPosition.y)){
             if (this.movingThroughPieces(x, y, board)){
+                console.log("diag into piece");
                 return false;
             }
             else {
                 return true;
             }
         }
+        console.log("id fucking know");
         return false;
     }
 
@@ -106,6 +111,34 @@ class Amazon extends Piece {
             this.image = images[1];
         } else {
             this.image = images[0];
+        }
+    }
+}
+
+class Arrow extends Piece {
+    constructor (x, y, isWhite) {
+        super (x, y, isWhite);
+    }
+
+    show () {
+        if (this.image != null){
+            imageMode(CENTER);
+            if (this.isMoving) {
+                image(this.image, mouseX, mouseY, tileSize * 1.5, tileSize * 1.5);
+            } else {
+                image(this.image, this.pixelPositon.x, this.pixelPositon.y, tileSize, tileSize);
+            }
+        }
+        else{
+            this.setimage();
+        }
+    }
+
+    setimage() {
+        if (this.isWhite) {
+            this.image = images[2];
+        } else {
+            this.image = images[2];
         }
     }
 }

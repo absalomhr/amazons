@@ -2,6 +2,8 @@ class Board {
     constructor() {
         this.whiteAmazons = [];
         this.blackAmazons = [];
+        this.whiteArrows = [];
+        this.blackArrows = [];
         this.setupPieces();
     }
 
@@ -37,7 +39,6 @@ class Board {
     }
 
     showPieces () {
-
         // Showing black pieces first if whites move
         // This way when moving a white piece
         // It will show on top of the black pieces
@@ -45,9 +46,15 @@ class Board {
             for (let i = 0; i < this.blackAmazons.length; i++){
                 this.blackAmazons[i].show();  
             }
+            for (let i = 0; i < this.blackArrows.length; i++){
+                this.blackArrows[i].show();  
+            }
             for (let i = 0; i < this.whiteAmazons.length; i++){
                 this.whiteAmazons[i].show(); 
                 
+            }
+            for (let i = 0; i < this.whiteArrows.length; i++){
+                this.whiteArrows[i].show(); 
             }
         }
         else {
@@ -55,9 +62,16 @@ class Board {
                 this.whiteAmazons[i].show(); 
                 
             }
+            for (let i = 0; i < this.whiteArrows.length; i++){
+                this.whiteArrows[i].show(); 
+            }
             for (let i = 0; i < this.blackAmazons.length; i++){
                 this.blackAmazons[i].show();  
             }
+            for (let i = 0; i < this.blackArrows.length; i++){
+                this.blackArrows[i].show();  
+            }
+
         }
         
         
@@ -80,5 +94,14 @@ class Board {
             }
         }
         return null;
+    }
+
+    pushArrow(arrow){
+        if (arrow.isWhite){
+            this.whiteArrows.push(arrow);
+        }
+        else {
+            this.blackArrows.push(arrow);
+        }
     }
 }
