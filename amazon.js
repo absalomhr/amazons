@@ -32,4 +32,11 @@ class Amazon {
             this.imageSet = true;
         }
     }
+
+    move (x, y, board){
+        // TODO check if can move to x, y
+        this.boardPosition = createVector (x, y);
+        this.pixelPositon = createVector (x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
+
+    }
 }

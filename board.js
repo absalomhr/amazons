@@ -42,4 +42,21 @@ class Board {
             this.blackAmazons[i].show();
         }
     }
+
+    getPieceAt(x, y) {
+        for (var i = 0; i < this.whiteAmazons.length; i++) {
+            if (this.whiteAmazons[i].boardPosition.x ==
+                x && this.whiteAmazons[i].boardPosition.y == y) {
+                    return this.whiteAmazons[i];
+            }
+
+        }
+        for (var i = 0; i < this.blackAmazons.length; i++) {
+            if (this.blackAmazons[i].boardPosition.x ==
+            x && this.blackAmazons[i].boardPosition.y == y) {
+                return this.blackAmazons[i];
+            }
+        }
+        return null;
+    }
 }
