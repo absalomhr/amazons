@@ -7,23 +7,28 @@ class Board {
 
     setupPieces() {
         // White pieces (played by human)
-        this.whiteAmazons.push(new Amazon(3, 0, true));
-        this.whiteAmazons.push(new Amazon(2, 5, true));
+        this.whiteAmazons.push(new Amazon(3, 9, true));
+        this.whiteAmazons.push(new Amazon(6, 9, true));
+        this.whiteAmazons.push(new Amazon(0, 6, true));
+        this.whiteAmazons.push(new Amazon(9, 6, true));
+
 
         // Black pieces (played by a computer)
-        this.blackAmazons.push(new Amazon(0, 2, false));
-        this.blackAmazons.push(new Amazon(5, 3, false));
+        this.blackAmazons.push(new Amazon(3, 0, false));
+        this.blackAmazons.push(new Amazon(6, 0, false));
+        this.blackAmazons.push(new Amazon(0, 3, false));
+        this.blackAmazons.push(new Amazon(9, 3, false));
 
         console.log("Pieces are set!")
     }
 
     showGrid () {
-        for (var i = 0; i < 6; i ++){
-            for (var j = 0; j < 6; j++){
+        for (var i = 0; i < 10; i ++){
+            for (var j = 0; j < 10; j++){
                 if ((i + j) % 2 == 1){
-                    fill(0);
+                    fill(134, 89, 45);
                 } else {
-                    fill(240);
+                    fill(255, 204, 102);
                 }
                 noStroke();
                 rect(i * tileSize, j * tileSize, tileSize, tileSize);
@@ -32,7 +37,7 @@ class Board {
     }
 
     showPieces () {
-        for (let i = 0; i < 2; i++){
+        for (let i = 0; i < this.whiteAmazons.length; i++){
             this.whiteAmazons[i].show();
             this.blackAmazons[i].show();
         }

@@ -1,15 +1,30 @@
 <html>
 <head>
-  <meta charset="UTF-8">
-  <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
-  <script language="javascript" src="libraries/p5.dom.js"></script>
-  <script language="javascript" src="libraries/p5.sound.js"></script>
-  <script language="javascript" type="text/javascript" src="init.js"></script>
-  <script language="javascript" type="text/javascript" src="amazon.js"></script>
-  <script language="javascript" type="text/javascript" src="board.js"></script>
-
+    <meta charset="UTF-8">
+    <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+    <script language="javascript" src="libraries/p5.dom.js"></script>
+    <script language="javascript" src="libraries/p5.sound.js"></script>
+    <script language="javascript" type="text/javascript" src="init.js"></script>
+    <script type="text/javascript" src="amazon.js"></script>
+    <script language="javascript" type="text/javascript" src="board.js"></script>
 </head>
 
 <body>
+    <div id="main">
+        <h2> Game of the Amazons </h2>
+        <div id="canvas"></div>
+    </div>
+
+
+    <script type="text/javascript">
+        //center the canvas
+        var tempString = ""+((window.innerWidth*0.9- 826 - window.innerWidth*0.9*0.08 )/2)+ "px";
+        document.getElementById("main").style.marginLeft = tempString;
+
+        window.onresize = function(event) {
+            var tempString = ""+((window.innerWidth*0.9- 826 - window.innerWidth*0.9*0.08 )/2)+ "px";
+            document.getElementById("main").style.marginLeft = tempString;
+        };
+    </script>
 </body>
 </html>
