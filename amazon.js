@@ -33,10 +33,39 @@ class Amazon {
         }
     }
 
+    withinBounds(x, y) {
+        if (x >= 0 && y >= 0 && x < 10 && y < 10) {
+            return true;
+        }
+        return false;
+    }
+
+    movingIntoPiece (x, y, board) {
+        var piece = board.getPieceAt(x, y);
+        if (piece != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    canMove(x, y, board){
+        if (!this.withinBounds(x,y)){
+            return false;
+        }
+        if (this.movingIntoPiece(x, y, board)){
+            return false;
+        }       
+        return true;
+    }
+
     move (x, y, board){
         // TODO check if can move to x, y
         this.boardPosition = createVector (x, y);
         this.pixelPositon = createVector (x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
 
     }
+
+
 }

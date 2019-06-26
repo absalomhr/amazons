@@ -33,9 +33,12 @@ function mousePressed() {
             return false;
         }
     } else { // If a piece is moving
-        // TODO check if can move to x, y
-        movingPiece.move(x, y, board);
-        movingPiece.isMoving = false;
+        if (movingPiece.canMove(x, y, board)){
+            movingPiece.move(x, y, board);
+            movingPiece.isMoving = false;    
+        } else {
+            movingPiece.isMoving = false;
+        }   
     }
     moving = !moving;
 }
