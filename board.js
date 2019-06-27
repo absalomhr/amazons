@@ -2,32 +2,34 @@ class Board {
     constructor() {
         this.whiteAmazons = [];
         this.blackAmazons = [];
-        //this.whiteArrows = [];
-        //this.blackArrows = [];
         this.arrows = [];
         this.setupPieces();
     }
 
     setupPieces() {
-        // White pieces (played by human)
-        this.whiteAmazons.push(new Amazon(3, 9, true));
-        this.whiteAmazons.push(new Amazon(6, 9, true));
-        this.whiteAmazons.push(new Amazon(0, 6, true));
-        this.whiteAmazons.push(new Amazon(9, 6, true));
+        if(dim == 10){
+            this.whiteAmazons.push(new Amazon(3, 9, true));
+            this.whiteAmazons.push(new Amazon(6, 9, true));
+            this.whiteAmazons.push(new Amazon(0, 6, true));
+            this.whiteAmazons.push(new Amazon(9, 6, true));
 
+            this.blackAmazons.push(new Amazon(3, 0, false));
+            this.blackAmazons.push(new Amazon(6, 0, false));
+            this.blackAmazons.push(new Amazon(0, 3, false));
+            this.blackAmazons.push(new Amazon(9, 3, false));
+        }
+        else if (dim == 6){
+            this.whiteAmazons.push(new Amazon(2, 5, true));
+            this.whiteAmazons.push(new Amazon(3, 0, true));
 
-        // Black pieces (played by a computer)
-        this.blackAmazons.push(new Amazon(3, 0, false));
-        this.blackAmazons.push(new Amazon(6, 0, false));
-        this.blackAmazons.push(new Amazon(0, 3, false));
-        this.blackAmazons.push(new Amazon(9, 3, false));
-
-        //console.log("Pieces are set!")
+            this.blackAmazons.push(new Amazon(0, 2, false));
+            this.blackAmazons.push(new Amazon(5, 3, false));
+        }
     }
 
     showGrid () {
-        for (var i = 0; i < 10; i ++){
-            for (var j = 0; j < 10; j++){
+        for (var i = 0; i < dim; i ++){
+            for (var j = 0; j < dim; j++){
                 if ((i + j) % 2 == 1){
                     fill(134, 89, 45);
                 } else {
@@ -50,36 +52,20 @@ class Board {
             for (let i = 0; i < this.blackAmazons.length; i++){
                 this.blackAmazons[i].show();  
             }
-            // for (let i = 0; i < this.blackArrows.length; i++){
-            //     this.blackArrows[i].show();  
-            // }
             for (let i = 0; i < this.whiteAmazons.length; i++){
                 this.whiteAmazons[i].show(); 
                 
             }
-            // for (let i = 0; i < this.whiteArrows.length; i++){
-            //     this.whiteArrows[i].show(); 
-            // }
         }
         else {
             for (let i = 0; i < this.whiteAmazons.length; i++){
                 this.whiteAmazons[i].show(); 
                 
             }
-            // for (let i = 0; i < this.whiteArrows.length; i++){
-            //     this.whiteArrows[i].show(); 
-            // }
             for (let i = 0; i < this.blackAmazons.length; i++){
                 this.blackAmazons[i].show();  
             }
-            // for (let i = 0; i < this.blackArrows.length; i++){
-            //     this.blackArrows[i].show();  
-            // }
-
         }
-
-
-        //console.log("You should see the pieces :)");
     }
 
     getPieceAt(x, y) {
@@ -103,11 +89,21 @@ class Board {
 
     pushArrow(arrow){
         this.arrows.push(arrow);
-        /*if (arrow.isWhite){
-            this.whiteArrows.push(arrow);
+    }
+
+    isGameOver () {
+        // Check if players have moves left, else they lost
+        var contw = 0;
+        var contb = 0;
+        for (let i = 0; i < this.whiteAmazons.length; i++){
+            if (this.whiteAmazons[i].haveAMove()){
+                contw += 1;
+            }
+            if (this.blackAmazons[i].haveAMove()){
+                contb += 1;
+            }
         }
-        else {
-            this.blackArrows.push(arrow);
-        }*/
+        var res = createVector(contw, contb);
+        return res;
     }
 }

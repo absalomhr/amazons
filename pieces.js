@@ -8,13 +8,13 @@ class Piece {
     }
 
     withinBounds(x, y) {
-        if (x >= 0 && y >= 0 && x < 10 && y < 10) {
+        if (x >= 0 && y >= 0 && x < dim && y < dim) {
             return true;
         }
         return false;
     }
 
-    movingIntoPiece(x, y, board) {
+    movingIntoPiece(x, y) {
         var piece = board.getPieceAt(x, y);
         if (piece != null) {
             return true;
@@ -24,7 +24,7 @@ class Piece {
         }
     }
 
-    movingThroughPieces(x, y, board) {
+    movingThroughPieces(x, y) {
         var xDirection = x - this.boardPosition.x;
         var yDirection = y - this.boardPosition.y;
         if (xDirection > 0){
@@ -50,18 +50,15 @@ class Piece {
         return false;
     }
 
-    canMove(x, y, board){
+    canMove(x, y){
         if (!this.withinBounds(x,y)){
-            console.log("Out of board boundaries");
             return false;
         }
-        else if (this.movingIntoPiece(x, y, board)){
-            console.log("Existing piece in selected target");
+        else if (this.movingIntoPiece(x, y)){
             return false;
         } // Orthogonal move
         else if (x == this.boardPosition.x || y == this.boardPosition.y){
-            if (this.movingThroughPieces(x, y, board)){
-                console.log("Orthogonal colition with another piece");
+            if (this.movingThroughPieces(x, y)){
                 return false;
             }
             else {
@@ -69,19 +66,17 @@ class Piece {
             }
         } // Diagonal move
         else if (abs(x - this.boardPosition.x) == abs (y - this.boardPosition.y)){
-            if (this.movingThroughPieces(x, y, board)){
-                console.log("Diagonal colition with another piece");
+            if (this.movingThroughPieces(x, y)){
                 return false;
             }
             else {
                 return true;
             }
         }
-        console.log("Non valid move");
         return false;
     }
 
-    move (x, y, board){
+    move (x, y){
         this.boardPosition = createVector (x, y);
         this.pixelPositon = createVector (x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
     }
@@ -112,6 +107,29 @@ class Amazon extends Piece {
         } else {
             this.image = images[0];
         }
+    }
+
+    haveAMove() {
+        // Try to move one square into any directiom, if cant in all of them
+        // this amazon has no moves left
+        if (this.canMove(this.boardPosition.x, this.boardPosition.y - 1)){
+            return true;
+        } else if (this.canMove(this.boardPosition.x, this.boardPosition.y + 1)){
+            return true;
+        } else if (this.canMove(this.boardPosition.x + 1, this.boardPosition.y)){
+            return true;
+        } else if (this.canMove(this.boardPosition.x - 1, this.boardPosition.y)){
+            return true;
+        } else if (this.canMove(this.boardPosition.x + 1, this.boardPosition.y + 1)){
+            return true;
+        } else if (this.canMove(this.boardPosition.x - 1, this.boardPosition.y - 1)){
+            return true;
+        } else if (this.canMove(this.boardPosition.x - 1, this.boardPosition.y + 1)){
+            return true;
+        } else if (this.canMove(this.boardPosition.x + 1, this.boardPosition.y - 1)){
+            return true;
+        }
+        return false;
     }
 }
 
