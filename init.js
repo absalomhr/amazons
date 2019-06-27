@@ -14,7 +14,8 @@ function setup() {
     for (var i = 0; i < 2; i++){
         images.push(loadImage("assets/amazon" + i + ".png"));
     }
-    images.push(loadImage("assets/arrow.jpeg"));
+    images.push(loadImage("assets/arrow.png"));
+    images.push(loadImage("assets/target.png"));
 }
 
 function draw () {

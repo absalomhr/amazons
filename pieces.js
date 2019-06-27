@@ -122,10 +122,13 @@ class Arrow extends Piece {
 
     show () {
         if (this.image != null){
-            imageMode(CENTER);
+            
             if (this.isMoving) {
+                imageMode(CORNER);
                 image(this.image, mouseX, mouseY, tileSize * 1.5, tileSize * 1.5);
             } else {
+                imageMode(CENTER);
+                this.image = images[3];
                 image(this.image, this.pixelPositon.x, this.pixelPositon.y, tileSize, tileSize);
             }
         }
