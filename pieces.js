@@ -52,16 +52,16 @@ class Piece {
 
     canMove(x, y, board){
         if (!this.withinBounds(x,y)){
-            console.log("bounds");
+            console.log("Out of board boundaries");
             return false;
         }
         else if (this.movingIntoPiece(x, y, board)){
-            console.log("into piece");
+            console.log("Existing piece in selected target");
             return false;
         } // Orthogonal move
         else if (x == this.boardPosition.x || y == this.boardPosition.y){
             if (this.movingThroughPieces(x, y, board)){
-                console.log("ort into piece");
+                console.log("Orthogonal colition with another piece");
                 return false;
             }
             else {
@@ -70,14 +70,14 @@ class Piece {
         } // Diagonal move
         else if (abs(x - this.boardPosition.x) == abs (y - this.boardPosition.y)){
             if (this.movingThroughPieces(x, y, board)){
-                console.log("diag into piece");
+                console.log("Diagonal colition with another piece");
                 return false;
             }
             else {
                 return true;
             }
         }
-        console.log("id fucking know");
+        console.log("Non valid move");
         return false;
     }
 

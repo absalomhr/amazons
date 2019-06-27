@@ -27,95 +27,58 @@ function mousePressed() {
     var x = floor(mouseX / tileSize);
     var y = floor(mouseY / tileSize);
 
-    if (whitesMove) {
-        if (shooting){ // Time to choose the target
-            if (movingArrow.canMove(x,y,board)){
-                console.log("leaving arrow");
-                movingArrow.move(x, y, board);
-                movingArrow.isMoving = false;
-                shooting = false;
-                whitesMove = !whitesMove;
+    if (shooting) { // Arrow ready, waiting for target
+        if (movingArrow.canMove(x,y,board)){
+            movingArrow.move(x, y, board);
+            movingArrow.isMoving = false;
+            shooting = false;
+            whitesMove = !whitesMove;
+            console.log("Arrow shot");            
+        }
+    } else if (!moving) { // No piece selected until now
+        movingPiece = board.getPieceAt(x, y); // The potential piece you just clicked
+        if (movingPiece == null || movingPiece instanceof Arrow) { // You cant select the arrows, or a empty square
+            console.log("Non valid selection, try again");
+            return false;
+        }
+        if (whitesMove){
+            if (movingPiece.isWhite){
+                movingPiece.isMoving = true; // You picked up a white amazon
+                moving = true; // You are gonna move that amazon
+                console.log("Moving a white amazon");
             }
-            else {
-                console.log("cant shoot");
+            else{
+                console.log("Cant choose a black piece in white turn");
+                return false;
+            }
+        } else {
+            if (!movingPiece.isWhite){
+                movingPiece.isMoving = true; // You picked up a black amazon
+                moving = true; // You are gonna move that amazon
+                console.log("Moving a black amazon");
+            }
+            else{
+                console.log("Cant choose a white piece in black turn");
                 return false;
             }
         }
+    } else if (moving) { // You are trying to put down the amazon
+        if (movingPiece.canMove(x, y, board)) { // Check if the amazon can move to the new destination
+            movingPiece.move(x, y, board); // Move it
+            movingPiece.isMoving = false; // You are no longer moving the amazon, it arrived its destination
+            moving = false; // You are not moving anything from the board
+            // movingPiece = null;
+            console.log("Amazon put down");
 
-        if(!moving) { // There isnt a piece moving
-            movingPiece = board.getPieceAt(x, y); // The potential piece you just clicked
-            if (movingPiece != null && movingPiece.isWhite){
-                movingPiece.isMoving = true;
-                moving = !moving; // You are moving a piece
-            } else {
-                // There's no piece to move where you clicked
-                // Or its of color black
-                movingPiece = null;
-                return false;
-            }
-        } else { // You are moving a piece
-            if (movingPiece.canMove(x, y, board)){ // Check if the piece can move to where you clicked
-                movingPiece.move(x, y, board); // It can
-                movingPiece.isMoving = false; // You are no longer moving the piece, it arrived its destination
-                moving = !moving;
-                movingPiece = null;
-
-                shooting = true; // You placed the amazon, now its time to shoot
-                movingArrow = new Arrow(x, y, true); // Create an arrow where piece is located now
-                movingArrow.isMoving = true;
-                board.pushArrow(movingArrow); // Add it to the board
-                //whitesMove = !whitesMove; // Its blacks turn
-            } else { // You cant move there, try other move
-                movingPiece.isMoving = false;
-                movingPiece = null;
-                moving = !moving;
-                return false;
-            }
-        }
-    } else { // Black moves
-        if (shooting){ // Time to choose the target
-            if (movingArrow.canMove(x,y,board)){
-                console.log("leaving arrow");
-                movingArrow.move(x, y, board);
-                movingArrow.isMoving = false;
-                shooting = false;
-                whitesMove = !whitesMove;
-            }
-            else {
-                console.log("cant shoot");
-                return false;
-            }
-        }
-
-        if(!moving) { // There isnt a piece moving
-            movingPiece = board.getPieceAt(x, y); // The potential piece you just clicked
-            if (movingPiece != null && !movingPiece.isWhite){
-                movingPiece.isMoving = true;
-                moving = !moving; // You are moving a piece
-            } else {
-                // There's no piece to move where you clicked
-                // Or its of color white
-                movingPiece = null;
-                return false;
-            }
-        } else { // You are moving a piece
-            if (movingPiece.canMove(x, y, board)){ // Check if the piece can move to where you clicked
-                movingPiece.move(x, y, board); // It can
-                movingPiece.isMoving = false; // You are no longer moving the piece, it arrived its destination
-                moving = !moving;
-                movingPiece = null;
-                
-                shooting = true; // You placed the amazon, now its time to shoot
-                movingArrow = new Arrow(x, y, false); // Create an arrow where piece is located now
-                movingArrow.isMoving = true;
-                board.pushArrow(movingArrow); // Add it to the board
-                //whitesMove = !whitesMove; // Its whites turn
-            } else { // You cant move there, try other move
-                movingPiece.isMoving = false;
-                movingPiece = null;
-                moving = !moving;
-                return false;
-            }
+            shooting = true; // You placed the amazon, now its time to shoot
+            movingArrow = new Arrow(x, y, true); // Create an arrow from where the amazon is located now
+            movingArrow.isMoving = true; // You are gonna move the arrow
+            board.pushArrow(movingArrow); // Add the arrow to the board
+            console.log("The amazon is ready to shoot");
+        } else { // You cant move there
+            movingPiece.isMoving = false; // You put the piece where it was 
+            // movingPiece = null;
+            moving = false; // You are not moving anything from the board
         }
     }
 }

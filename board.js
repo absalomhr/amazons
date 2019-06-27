@@ -2,8 +2,9 @@ class Board {
     constructor() {
         this.whiteAmazons = [];
         this.blackAmazons = [];
-        this.whiteArrows = [];
-        this.blackArrows = [];
+        //this.whiteArrows = [];
+        //this.blackArrows = [];
+        this.arrows = [];
         this.setupPieces();
     }
 
@@ -39,6 +40,9 @@ class Board {
     }
 
     showPieces () {
+        for (let i = 0; i < this.arrows.length; i++){
+            this.arrows[i].show();
+        }
         // Showing black pieces first if whites move
         // This way when moving a white piece
         // It will show on top of the black pieces
@@ -46,62 +50,64 @@ class Board {
             for (let i = 0; i < this.blackAmazons.length; i++){
                 this.blackAmazons[i].show();  
             }
-            for (let i = 0; i < this.blackArrows.length; i++){
-                this.blackArrows[i].show();  
-            }
+            // for (let i = 0; i < this.blackArrows.length; i++){
+            //     this.blackArrows[i].show();  
+            // }
             for (let i = 0; i < this.whiteAmazons.length; i++){
                 this.whiteAmazons[i].show(); 
                 
             }
-            for (let i = 0; i < this.whiteArrows.length; i++){
-                this.whiteArrows[i].show(); 
-            }
+            // for (let i = 0; i < this.whiteArrows.length; i++){
+            //     this.whiteArrows[i].show(); 
+            // }
         }
         else {
             for (let i = 0; i < this.whiteAmazons.length; i++){
                 this.whiteAmazons[i].show(); 
                 
             }
-            for (let i = 0; i < this.whiteArrows.length; i++){
-                this.whiteArrows[i].show(); 
-            }
+            // for (let i = 0; i < this.whiteArrows.length; i++){
+            //     this.whiteArrows[i].show(); 
+            // }
             for (let i = 0; i < this.blackAmazons.length; i++){
                 this.blackAmazons[i].show();  
             }
-            for (let i = 0; i < this.blackArrows.length; i++){
-                this.blackArrows[i].show();  
-            }
+            // for (let i = 0; i < this.blackArrows.length; i++){
+            //     this.blackArrows[i].show();  
+            // }
 
         }
-        
-        
+
 
         //console.log("You should see the pieces :)");
     }
 
     getPieceAt(x, y) {
         for (var i = 0; i < this.whiteAmazons.length; i++) {
-            if (this.whiteAmazons[i].boardPosition.x ==
-                x && this.whiteAmazons[i].boardPosition.y == y) {
+            if (this.whiteAmazons[i].boardPosition.x == x && this.whiteAmazons[i].boardPosition.y == y) {
                     return this.whiteAmazons[i];
             }
-
         }
         for (var i = 0; i < this.blackAmazons.length; i++) {
-            if (this.blackAmazons[i].boardPosition.x ==
-            x && this.blackAmazons[i].boardPosition.y == y) {
+            if (this.blackAmazons[i].boardPosition.x == x && this.blackAmazons[i].boardPosition.y == y) {
                 return this.blackAmazons[i];
+            }
+        }
+        for (var i = 0; i < this.arrows.length; i++){
+            if (this.arrows[i].boardPosition.x == x && this.arrows[i].boardPosition.y == y) {
+                return this.arrows[i];
             }
         }
         return null;
     }
 
     pushArrow(arrow){
-        if (arrow.isWhite){
+        this.arrows.push(arrow);
+        /*if (arrow.isWhite){
             this.whiteArrows.push(arrow);
         }
         else {
             this.blackArrows.push(arrow);
-        }
+        }*/
     }
 }
