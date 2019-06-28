@@ -5,8 +5,8 @@ let movingPiece; // Variable that stores temporarily the piece that you are movi
 let movingArrow; // Variable that stores temporarily the arrow that you are moving
 let moving = false; // Are you moving a piece right now?
 let shooting = false; // Are you shooting an arrow?
-let whitesMove = true; // Is it whites turn?
-let dim = 6; // 6 or 10, dimension of the board
+let whitesMove = window.colorStart === "white"; // Is it whites turn?
+let dim = window.boardChoice; // 6 or 10, dimension of the board
 
 function setup() {
     board = new Board();

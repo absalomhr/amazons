@@ -2,32 +2,76 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
-
-        <script language="javascript" type="text/javascript" src="init.js"></script>
-        <script language="javascript" type="text/javascript" src="pieces.js"></script>
-        <script language="javascript" type="text/javascript" src="board.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles.css" />
     </head>
 
     <body>
-        <h1> Game of the Amazons </h1>
+        <h1 class="title"> Game of the Amazons </h1>
 
-        <form id="dimform">
+        <form id="theOptions">
+            <section class="questions">
+                <div class="options">
+                    <p>Board Size: </p>
+
+                    <input checked type="radio" id="6" name="boardChoice" value="6">
+                    <label for="6"> 6 x 6 </label>
+                    <br />
+
+                    <input type="radio" id="10" name="boardChoice" value="10">
+                    <label for="10"> 10 x 10 </label>
+                </div>
+
+                <div class="options">
+
+                    <p>Who starts:</p>
+                    <input checked type="radio" id="white" name="colorStart" value="white">
+                    <label for="white">White</label>
+                    <br />
+
+                    <input type="radio" id="black" name="colorStart" value="black">
+                    <label for="black">Black</label>
+                </div>
+            </section>
+
+            <button type="submit">Empezar</button>
         </form>
 
         <div id="canvas" />
     </body>
+    
+    <script>
+        const loadScript = scr => {
+            const script = document.createElement('script')
+            script.src = scr
+            document.head.appendChild(script)
+        }
 
-    <style>
-        body {
-            text-align: center;
-            padding: 2rem;
+        const formWithOptions = document.getElementById("theOptions")
+        formWithOptions.onsubmit = () => {
+            window.colorStart = formWithOptions.elements["colorStart"].value
+            window.boardChoice = formWithOptions.elements["boardChoice"].value
+
+            console.log(colorStart)
+            console.log(boardChoice)
+
+            loadScript("libraries/p5.min.js")
+            loadScript("init.js")
+            loadScript("pieces.js")
+            loadScript("board.js")
+
+            formWithOptions.style.display = "none"
+
+            const resizeCanvas = setInterval(() => {
+                const canvas = document.getElementById("defaultCanvas0")
+                if (!canvas) return
+
+                canvas.style = ""
+                canvas.style.display = "block"
+
+                clearInterval(resizeCanvas)
+            }, 10)
+
+            return false
         }
-        
-        #canvas {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+    </script>
 </html>
