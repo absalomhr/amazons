@@ -1,18 +1,18 @@
-var images = []; // Load images for the program
-var board; // Board object
-var tileSize = 100; // Size of the pieces
-var movingPiece; // Variable that stores temporarily the piece that you are moving
-var movingArrow; // Variable that stores temporarily the arrow that you are moving
-var moving = false; // Are you moving a piece right now?
-var shooting = false; // Are you shooting an arrow?
-var whitesMove = true; // Is it whites turn?
-var dim = 6; // 6 or 10, dimension of the board
+let images = []; // Load images for the program
+let board; // Board object
+let tileSize = 100; // Size of the pieces
+let movingPiece; // Variable that stores temporarily the piece that you are moving
+let movingArrow; // Variable that stores temporarily the arrow that you are moving
+let moving = false; // Are you moving a piece right now?
+let shooting = false; // Are you shooting an arrow?
+let whitesMove = window.colorStart === "white"; // Is it whites turn?
+let dim = window.boardChoice; // 6 or 10, dimension of the board
 
 function setup() {
     board = new Board();
     window.canvas = createCanvas(100*dim, 100*dim);
     canvas.parent("canvas");
-    for (var i = 0; i < 2; i++){
+    for (let i = 0; i < 2; i++){
         images.push(loadImage("assets/amazon" + i + ".png"));
     }
     images.push(loadImage("assets/arrow.png"));
@@ -23,7 +23,7 @@ function draw () {
     background(100);
     board.showGrid();
     board.showPieces();
-    var res = board.isGameOver(); 
+    let res = board.isGameOver(); 
     if (res.x == 0){
         alert("Black wins"); 
         noLoop();  
@@ -36,8 +36,8 @@ function draw () {
 }
 
 function mousePressed() {
-    var x = floor(mouseX / tileSize);
-    var y = floor(mouseY / tileSize);
+    let x = floor(mouseX / tileSize);
+    let y = floor(mouseY / tileSize);
 
     if (shooting) { // Arrow ready, waiting for target
         if (movingArrow.canMove(x,y)){

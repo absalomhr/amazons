@@ -15,7 +15,7 @@ class Piece {
     }
 
     movingIntoPiece(x, y) {
-        var piece = board.getPieceAt(x, y);
+        let piece = board.getPieceAt(x, y);
         if (piece != null) {
             return true;
         }
@@ -25,8 +25,8 @@ class Piece {
     }
 
     movingThroughPieces(x, y) {
-        var xDirection = x - this.boardPosition.x;
-        var yDirection = y - this.boardPosition.y;
+        let xDirection = x - this.boardPosition.x;
+        let yDirection = y - this.boardPosition.y;
         if (xDirection > 0){
             xDirection = 1;
         } else if (xDirection < 0){
@@ -37,7 +37,7 @@ class Piece {
         } else if (yDirection < 0){
             yDirection = -1;
         }
-        var travel = createVector(this.boardPosition.x, this.boardPosition.y);
+        let travel = createVector(this.boardPosition.x, this.boardPosition.y);
         travel.x += xDirection;
         travel.y += yDirection;
         while (travel.x != x || travel.y != y){

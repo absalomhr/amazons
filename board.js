@@ -28,8 +28,8 @@ class Board {
     }
 
     showGrid () {
-        for (var i = 0; i < dim; i ++){
-            for (var j = 0; j < dim; j++){
+        for (let i = 0; i < dim; i ++){
+            for (let j = 0; j < dim; j++){
                 if ((i + j) % 2 == 1){
                     fill(134, 89, 45);
                 } else {
@@ -69,17 +69,17 @@ class Board {
     }
 
     getPieceAt(x, y) {
-        for (var i = 0; i < this.whiteAmazons.length; i++) {
+        for (let i = 0; i < this.whiteAmazons.length; i++) {
             if (this.whiteAmazons[i].boardPosition.x == x && this.whiteAmazons[i].boardPosition.y == y) {
                     return this.whiteAmazons[i];
             }
         }
-        for (var i = 0; i < this.blackAmazons.length; i++) {
+        for (let i = 0; i < this.blackAmazons.length; i++) {
             if (this.blackAmazons[i].boardPosition.x == x && this.blackAmazons[i].boardPosition.y == y) {
                 return this.blackAmazons[i];
             }
         }
-        for (var i = 0; i < this.arrows.length; i++){
+        for (let i = 0; i < this.arrows.length; i++){
             if (this.arrows[i].boardPosition.x == x && this.arrows[i].boardPosition.y == y) {
                 return this.arrows[i];
             }
@@ -93,8 +93,8 @@ class Board {
 
     isGameOver () {
         // Check if players have moves left, else they lost
-        var contw = 0;
-        var contb = 0;
+        let contw = 0;
+        let contb = 0;
         for (let i = 0; i < this.whiteAmazons.length; i++){
             if (this.whiteAmazons[i].haveAMove()){
                 contw += 1;
@@ -103,7 +103,7 @@ class Board {
                 contb += 1;
             }
         }
-        var res = createVector(contw, contb);
+        let res = createVector(contw, contb);
         return res;
     }
 }
