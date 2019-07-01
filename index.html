@@ -3,39 +3,45 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="styles.css" />
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
-
     <body>
-        <h1 class="title"> Game of the Amazons </h1>
-
+        <h1 class="title"> <a href="index.html"> Game of the Amazons </a> </h1>
+        <h3 class="">Amazons is a two-player (PvP) abstract strategy game invented in 1988 by Walter Zamkauskas of Argentina.</h3>
+        <h1><a href="https://github.com/absalomhr/amazons"><i class="fa fa-github"></i></a></h1>
+        <section id="theRules" class="rules">
+            <h1 class="subtitle"> Rules: </h1>
+            <ul class="list">
+                <li>Amazons move exactly as a queen in chess.</li>
+                <li>After moving, the amazon shoots an arrow from its landing position to another square, using a queenlike move as well, even backwards along the same path the amazon just traveled.</li>
+                <li>The square where the arrow lands is marked to show that it can no longer be used.</li>
+                <li>An arrow, like an amazon, cannot cross or enter a square where another arrow has landed or an amazon of either color stands.</li>
+                <li>The last player to be able to make a legal move wins.</li>
+            </ul> 
+        </section>
         <form id="theOptions">
             <section class="questions">
                 <div class="options">
                     <p>Board Size: </p>
-
                     <input checked type="radio" id="6" name="boardChoice" value="6">
-                    <label for="6"> 6 x 6 </label>
+                    <label for="6"> 6 x 6 (4 amazons) </label>
                     <br />
 
                     <input type="radio" id="10" name="boardChoice" value="10">
-                    <label for="10"> 10 x 10 </label>
+                    <label for="10"> 10 x 10 (8 amazons) </label>
                 </div>
-
                 <div class="options">
-
-                    <p>Who starts:</p>
+                    <p>First turn:</p>
                     <input checked type="radio" id="white" name="colorStart" value="white">
-                    <label for="white">White</label>
+                    <label for="white">Whites</label>
                     <br />
 
                     <input type="radio" id="black" name="colorStart" value="black">
-                    <label for="black">Black</label>
+                    <label for="black">Blacks</label>
                 </div>
             </section>
-
-            <button type="submit">Empezar</button>
+            <button type="submit">Start game</button>
         </form>
-
         <div id="canvas" />
     </body>
     
@@ -48,6 +54,8 @@
 
         const formWithOptions = document.getElementById("theOptions")
         formWithOptions.onsubmit = () => {
+            let rules = document.getElementById("theRules");
+            rules.style.display = "none";
             window.colorStart = formWithOptions.elements["colorStart"].value
             window.boardChoice = formWithOptions.elements["boardChoice"].value
 
