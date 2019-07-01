@@ -1,2 +1,2 @@
 # Game of the amazons
-An implementation (PvP) of the Amazons game invented in Argentina in JavaScript using the P5js library. 
+An implementation (PvP) in JavaScript of the Amazons game invented in Argentina using the P5js library. 
